@@ -1,15 +1,6 @@
 import mido
 import threading
 
-# 1. Start loopMIDI and create the virtual MIDI devices below
-# 2. Run this script
-# 3. Start Rekordbox
-# 4. Open the MIDI window and import mappings to the corresponding devices
-#    Default MIDI mappings for Rekordbox can be found in /Mappings
-#    - The DDJ-SX mapping is completely empty, and only exists to receive jog messages
-#    - The Control mapping is what receives control messages from this script
-#    - The LED mapping is what sends output (LED) messages to this script, which passes them on to the controller
-
 PHYSICAL_MIDI_DEVICE =       "DJControl Starlight"   # The name of your physical MIDI controller
 VIRTUAL_JOGWHEEL_DEVICE =    "PIONEER DDJ-SX"        # Create a virtual device in loopMIDI with this name, and create an empty mapping for it in Rekordbox to receive jog messages
 VIRTUAL_CONTROL_DEVICE =     "Starlight Control"     # Create a virtual device in loopMIDI with this name, and create a mapping in Rekordbox to receive Input messages to this device
@@ -96,14 +87,14 @@ if __name__ == "__main__":
             outport_other_name = port_name
             break
 
-    # Make Rekordbox send Output (LED) messages to this port
+    # Make Rekordbox send output (LED) messages to this port
     inport_led_name = None
     for port_name in input_ports:
         if VIRTUAL_LED_DEVICE in port_name:
             inport_led_name = port_name
             break
 
-    # Forward Rerkodbox's Output (LED) messages to the physical device
+    # Forward Rerkodbox's output (LED) messages to the physical device
     outport_led_name = None
     for port_name in output_ports:
         if PHYSICAL_MIDI_DEVICE in port_name:
